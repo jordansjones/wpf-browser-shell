@@ -1,0 +1,80 @@
+﻿<Window x:Class="WpfBrowserShell.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WpfBrowserShell"
+        Title="WPF Browser Shell" Height="786" Width="1024">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Grid Margin="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock FontSize="18">Actions</TextBlock>
+        <ItemsControl ItemsSource="{Binding MainMenu}" Grid.Row="1" Margin="10,0,0,0">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Margin="0,0,0,10" >
+                        <Hyperlink Command="{Binding Command}">
+                            <TextBlock Text="{Binding Name}"/>
+                        </Hyperlink>
+                    </TextBlock>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        </Grid>
+        <GridSplitter Grid.Column="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Stretch"
+              Background="Black" 
+              ShowsPreview="True"
+              Width="5"
+              />
+        <local:EmbeddedBrowser Grid.Column="2" 
+                               Interop="{Binding Browser.Interop}"
+                               Source="{Binding Browser.Location}" />
+        <Border Grid.Row="1" 
+                Grid.ColumnSpan="3" 
+                Padding="4"
+                Background="#EEE"
+                BorderBrush="Black"
+                BorderThickness="0,1,0,0">
+            <StackPanel 
+                Orientation="Horizontal">
+                <Grid Margin="0,0,20,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="0,0,4,0">Total:</TextBlock>
+                    <TextBlock Grid.Column="1" Text="{Binding Status.Total}"></TextBlock>
+                </Grid>
+                <Grid Margin="0,0,20,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="0,0,4,0">Completed:</TextBlock>
+                    <TextBlock Grid.Column="1" Text="{Binding Status.Completed}"></TextBlock>
+                </Grid>
+                <Grid Margin="0,0,20,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="0,0,4,0">Selected:</TextBlock>
+                    <TextBlock Grid.Column="1" Text="{Binding Status.Selected}"></TextBlock>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
